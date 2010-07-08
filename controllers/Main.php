@@ -2,6 +2,11 @@
 class Main extends App {
 
 	static $urlPattern = array(
+		'/^users.*/' => array('Users.php'),
+		//'/^pages.*/' => array('Pages.php'),
+		//'/^admin.*/' => array('Admin.php')
+	
+	
 		'/user\/add\/do/' => 'doaddUser',
 		'/user\/add/' => 'addUser',
 		'/user\/edit\/do\/(.*)/' => 'doeditUser',
