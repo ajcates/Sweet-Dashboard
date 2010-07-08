@@ -28,9 +28,9 @@ class Main extends App {
 
 	function index() {
 		if($this->models->User->loggedIn()) {
-			$this->libs->Template->set(array('title'=>'Dashboard','content'=> $this->libs->Template->get('admin/parts/dashboard')))->render('admin/bases/content');
+			$this->libs->Template->set(array('title'=>'Dashboard','content'=> $this->libs->Template->get('parts/dashboard')))->render('bases/content');
 		} else {
-			$this->libs->Template->set(array('title'=>'Please login','form'=> $this->libs->Template->get('admin/parts/login')))->render('admin/bases/form');
+			$this->libs->Template->set(array('title'=>'Please login','form'=> $this->libs->Template->get('parts/login')))->render('bases/form');
 		}
 	}
 	
@@ -43,7 +43,7 @@ class Main extends App {
 		
 		$this->libs->Template->set(array(
 			'title'=>'Dashboard',
-			'content'=> $this->libs->Template->get('admin/parts/sandbox', array(
+			'content'=> $this->libs->Template->get('parts/sandbox', array(
 				'test' => 'Hello Sandbox World!',
 				//'pages' => D::log($this->model('Pages')->pull('user')->all(), 'Pages')
 				//'pages' => D::log($this->model('Pages')->pull('user', array('tags' => array('tag', 'user' => 'type') ))->all(), 'Pages')
@@ -55,7 +55,7 @@ class Main extends App {
 				//'pages' => D::log($this->model('Pages')->all(), 'Pages')
 				//'pages' => D::log($this->model('Pages')->limit(3)->pull('user')->all(), 'Pages')
 			))
-		))->render('admin/bases/content');
+		))->render('bases/content');
 		
 		/*
 		
@@ -132,9 +132,9 @@ class Main extends App {
 			'items' => $this->model('User')->limit(10)->all(),
 			'itemsEach' => function($v) {
 				//return B::li($v->fullname);
-				return B::li(V::get('admin/users/brief', array('user'=> $v)));
+				return B::li(V::get('users/brief', array('user'=> $v)));
 			}
-		))->render('admin/bases/list');
+		))->render('bases/list');
 	}
 	
 	function editUser() {
@@ -144,9 +144,9 @@ class Main extends App {
 		$user = $this->model('User')->get($this->libs->Uri->get(0))->one();
 		$this->libs->Template->set(array(
 			'title' => 'Edit User: ' . $user->fullname,
-			'form' => $this->libs->Template->get('admin/parts/edituser', array('user' => $user))
+			'form' => $this->libs->Template->get('parts/edituser', array('user' => $user))
 		));
-		$this->libs->Template->render('admin/bases/form');
+		$this->libs->Template->render('bases/form');
 		
 	}
 	
@@ -156,9 +156,9 @@ class Main extends App {
 		}
 		$this->libs->Template->set(array(
 			'title' => 'Add User',
-			'form' => $this->libs->Template->get('admin/parts/adduser')
+			'form' => $this->libs->Template->get('parts/adduser')
 		));
-		$this->libs->Template->render('admin/bases/form');
+		$this->libs->Template->render('bases/form');
 	}
 	
 	function doaddUser() {
@@ -205,10 +205,10 @@ class Main extends App {
 		} else {
 			$this->libs->Template->set(array(
 				'title' => 'User: ' . $user->fullname,
-				'content' => V::get('admin/users/detail', array('user' => $user))
+				'content' => V::get('users/detail', array('user' => $user))
 			));
 		}		
-		$this->libs->Template->render('admin/bases/content');
+		$this->libs->Template->render('bases/content');
 	}
 	
 	
@@ -220,9 +220,9 @@ class Main extends App {
 			'actions' => B::a(array('href'=> SITE_URL .'admin/addpage'), 'Add Page'),
 			'items' => $this->model('Pages')->limit(10)->all(),
 			'itemsEach' => function($v) {
-				return B::li(V::get('admin/pages/brief', array('page'=> $v)));
+				return B::li(V::get('pages/brief', array('page'=> $v)));
 			}
-		))->render('admin/bases/list');
+		))->render('bases/list');
 	}
 	
 	function page() {
@@ -236,17 +236,17 @@ class Main extends App {
 		@todo
 		Make this template a genric for a listing
 		*/
-		$this->libs->Template->render('admin/bases/content');
+		$this->libs->Template->render('bases/content');
 	}
 	
 	function addpage() {
 		if(!$this->models->User->loggedIn()) { return $this->libs->Uri->redirect('admin');}
 		$this->libs->Template->set(array(
 			'title' => 'Add Page',
-			'form' => $this->libs->Template->get('admin/parts/addpage')
+			'form' => $this->libs->Template->get('parts/addpage')
 		));
 		
-		$this->libs->Template->render('admin/bases/form');
+		$this->libs->Template->render('bases/form');
 	}
 	
 	function doaddpage() {

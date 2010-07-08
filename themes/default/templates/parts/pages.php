@@ -4,22 +4,17 @@
 	),
 	'body' => B::body(
 		B::header(
-			B::h1('Dashboard'),
+			B::h1('Dashboard - Pages'),
 			T::get('admin/site/nav')
 		),
 		B::section(
-			B::h3('Pages')
-		),
-		B::section(
-			B::h3('meh')
-		),
-		B::section(
-			B::h3('Users'),
+			B::h3('Pages'),
+			B::a(array('href'=> SITE_URL .'admin/addpage'), 'Add Page'),
 			B::ul(join(array_map(
 				function($v) {
-					return B::li(V::get('users/brief', array('user' => $v)));
+					return B::li(V::get('admin/pages/brief', array('page' => $v)));
 				},
-				M::User()->limit(10)->all()
+				$pages
 			)))
 		),
 		B::footer(
