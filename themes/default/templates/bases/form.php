@@ -10,7 +10,7 @@
 	'body' => B::body(
 		B::header(
 			B::h1('SweetFramework - ' . $title),
-			T::get('parts/nav')
+			T::get('parts/common/nav')
 		),
 		ifthereshow($message,
 			B::div(array('class' => 'message'), @$message)
